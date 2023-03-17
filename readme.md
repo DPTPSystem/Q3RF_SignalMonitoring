@@ -11,7 +11,7 @@ vezetés képpen, hogy vissza tudjam követni, hogy még is miket csináltam má
 publikálom az adatokat, hátha másnak is hasznosak lesznek és hátha bele botlok valakibe, aki majd tud segíteni, hogy a végső
 célom elérjem.
 
-# Célkitúzés
+# Célkitűzés
 - Q3RF kommunikáció megfigyelése és az adatok feldolgozása, majd egy külön kijelzőn jelezni, hogy a fűtés rendszer aktív avagy sem.
 - További célkitúzés lehet, egy optimálisabb vezérlés kialakítása, amely a lakás több helyiségének átlaghömérsékletének alapján 
 vezérlné a fűtésrendszert.
@@ -51,9 +51,9 @@ Tehát a fentebbi jesorozat vissza fejtve a következő képpen néz ki:
 
 ` CMD1 5 byte`
 
-` CMD1 Binárisa: 0011 1101 0001 1001 1100 0000 0000 0000 0110 0100`
+` CMD1 Binárisa: 0111 1010 0011 0011 1000 0000 1000 0000 0100 1001`
 
-` CMD1 Hexa: 0x3D19C00064`
+` CMD1 Hexa: 0x7A33808049`
 
 Látható, hogy automatikusan kiegészült 1 bittel a sorozat, hogy értelmezhető byte alakot kapjunk. Jelenleg a sorozat elejére került
 egy nulla, amely az értékén nem változtat, de a jel elcsúszhat 1 bit-et jobbra vagy adott esetben ballra.
@@ -88,14 +88,46 @@ lehetséges, hogy a sorozat elejéről hiányzik 4 0000-ás bit. (ezt utóbit cs
 
 ` CMD2 Hexa: 0x7A338000C9`
 
-Itt látható, hogy a START jelhez képest más a jelsorozat, bár kimutatható, de nem vészesen sok a külömbség.
+Itt látható, hogy a START jelhez képest más a jelsorozat bár kimutatható, de nem vészesen sok a külömbség.
 
 * CCMD2 jelsorozat visszafejtése
 
 ` CCMD2 7 byte` 
 
-` CCMD2 Bináris: 01011 0001 1001 1000 1111 1110 0000 1011 0001 1001 1000 1111 1110 0000`
+` CCMD2 Bináris: 0101 1000 1100 1100 0111 1111 0000 0101 1000 1100 1100 0111 1111 0000`
  
-` CCMD2 Hexa: 0xB198FE0B198FE0`
+` CCMD2 Hexa: 0x58CC7F058CC7F0`
 
 Itt viszont megint jól látszik, hogy egy csomagban ismétli önmagát a sorozat, ugyan azokkal a jellemzőkkel mint ahogy a CCMD1-nél leírtam.
+
+# Adatok összevetése
+* - Megjegyzés: Ezen gondolataim leírása közben ujra áttekintettem a digitális mintákat és kiderült, hogy rosszúl értelmeztem ezeket javítottam
+feljebb is, hogy a pontos adatok legyenek leírva. A képeket nem módosítottam.
+* START és STOP (CMD1, CMD2) jel egymás alatt
+` CMD1 Binárisa: 0111 1010 0011 0011 1000 0000 1000 0000 0100 1001 || CMD1 Hexa: 0x7A33808049`
+` CMD2 Binárisa: 0111 1010 0011 0011 1000 0000 0000 0000 1100 1001 || CMD2 Hexa: 0x7A338000C9`
+* START és STOP (CCMD1, CCMD2) jel egymás alatt
+` CCMD1 Bináris: 0101 1000 1100 1100 0111 0000 0000 0101 1000 1100 1100 0111 0000 0000 || CCMD1 Hexa: 0x58CC70058CC700`
+` CCMD2 Bináris: 0101 1000 1100 1100 0111 1111 0000 0101 1000 1100 1100 0111 1111 0000 || CCMD2 Hexa: 0x58CC7F058CC7F0`
+
+- Újra értelmezve a jeleket, már sokkal szebb és értelmesebb adatokat látok mint korábban, egyértelműen kiolvashatók a külömbségek és
+értelmesnek és helyesnek tűnnek az adatok.
+További felbontás ezuttal csak hexában:
+* START és STOP (CMD1, CMD2) jel egymás alatt
+` CMD1 Hexa: 0x 7A 33 80 80 49`
+` CMD2 Hexa: 0x 7A 33 80 00 C9` - Utolsó 2 byte a külömbség
+* START és STOP (CCMD1, CCMD2) jel egymás alatt
+` CCMD1 Hexa: 0x 58 CC 70 - 0 - 58 CC 70 - 0`
+` CCMD2 Hexa: 0x 58 CC 7F - 0 - 58 CC 7F - 0` - Ketté osztható a csomag és a felekben csak az utolsó 4 bit változik.
+
+# Konklúzió
+- Első 45 jel továbbra is úgy gondolom, hogy egy ébresztő vagy más jelzés a vevőnek, hogy adatok fognak érkezni.
+- CMD1, CMD2 azonosító adat lehet, Bár nem értem az utolsó 2 byte jelentőségét egyelőre. Ha csak nem itt is jelzi mondjuk a START illetve
+a STOP jelet. Pl.: 0x80 = START, 0x00 = STOP.
+Kérdés továbbá itt, hogy az utolsó 1 byte mit közölhet. Ennek majd még utána nézek, pl elem merülés?
+- CCMD1, CCMD2 itt sokkal jobb a helyzet mind két esetben csak az utolsó 4 bit változik. 0x0 bekapcsolás, 0xF kikapcsolás. 
+Az első 3 byte és a közvetlen mögötte lévő vagy az utolsó byte felső 4bitje még hozzá tartozik az azonosítához.
+
+# Hibák
+2023-03-17. Újra átnéztem az összes digitális jelet és már kicsit jobb rálátással újra értelmeztem őket, a leírásban javítottam tehát
+már a jó bináris és hexa államonyokat olvashatjuk.
