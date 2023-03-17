@@ -48,9 +48,13 @@ ki kell értékelni. Arra is gondoltam, hogy a szünet kezdete összefolyik az u
 ideig van magas szinten dönti el, hogy 0 vagy 1-es a jel értéke. Ezt majd később látni is fogjuk.
 
 Tehát a fentebbi jesorozat vissza fejtve a következő képpen néz ki: 
+
 ` CMD1 5 byte`
+
 ` CMD1 Binárisa: 0011 1101 0001 1001 1100 0000 0000 0000 0110 0100`
+
 ` CMD1 Hexa: 0x  	3	 D	  1	   9	C	 0	  0	   0	6	 4`
+
 Látható, hogy automatikusan kiegészült 1 bittel a sorozat, hogy értelmezhető byte alakot kapjunk. Jelenleg a sorozat elejére került
 egy nulla, amely az értékén nem változtat, de a jel elcsúszhat 1 bit-et jobbra vagy adott esetben ballra.
 * Fontos megjegyezni, hogy a CMD1-es parancs 4 szer egymás után érkezik egy pici szünettel elválsztva, mind a 4 ugyan olyan jel, de
@@ -63,9 +67,13 @@ Ez a sorozat is 4szer egymát követően érkezik pici időkkel elválasztva. Em
 rendelkezik a jelsorozat, mint a korábbiak, így könnyebb dolgom volt vele.
 
 Tehát a fentebbi jesorozat vissza fejtve a következő képpen néz ki:
+
 ` CCMD1 7 byte` 
+
 ` CCMD1 Bináris: 0101 1000 1100 1100 0111 0000 0000 0101 1000 1100 1100 0111 0000 0000` 
+
 ` CCMD1 Hexa: 0x 	5	 8    C	   C 	7	 0    0	   5 	8	 C	  C	   7 	0	 0` 
+
 Ami rögtön feltűnt mikor hexába átforgattam, hogy egy csomagban ismétli önmagát. Ami érdekes még, hogy ha felbonjuk kerek byte-okra
 a sorozatot, akkor középpen és a legvégén marad 4 bit (0000), amely valószínűleg a két csomagot választja el egymástól. Vagy esetleg
 lehetséges, hogy a sorozat elejéről hiányzik 4 0000-ás bit. (ezt utóbit csak találgatom)
@@ -73,13 +81,21 @@ lehetséges, hogy a sorozat elejéről hiányzik 4 0000-ás bit. (ezt utóbit cs
 # STOP
 - WakeUp vagy init jel 45 db egymást követő 50%-os kitöltésű jel, kép fentebb látható, ugyan olyan.
 * CMD2 jelsorozat visszafejtése
-` CMD2 5 byte` 
-` CMD2 Binárisa: 0111 1010 0011 0011 1000 0000 0000 0000 1100 1001` 
-` CMD2 Hexa: 0x	 	7	 A	  3    3	8	 0	  0	   0	C	 9` 
+
+` CMD2 5 byte`
+
+` CMD2 Binárisa: 0111 1010 0011 0011 1000 0000 0000 0000 1100 1001`
+
+` CMD2 Hexa: 0x	 	7	 A	  3    3	8	 0	  0	   0	C	 9`
+
 Itt látható, hogy a START jelhez képest más a jelsorozat, bár kimutatható, de nem vészesen sok a külömbség.
 
 * CCMD2 jelsorozat visszafejtése
+
 ` CCMD2 7 byte` 
-` CCMD2 Bináris: 01011 0001 1001 1000 1111 1110 0000 1011 0001 1001 1000 1111 1110 0000` 
+
+` CCMD2 Bináris: 01011 0001 1001 1000 1111 1110 0000 1011 0001 1001 1000 1111 1110 0000`
+ 
 ` CCMD2 Hexa: 0x	 B	  1	   9	8	 F	  E	   0	B	 1	  9	   8	F	 E	  0`
+
 Itt viszont megint jól látszik, hogy egy csomagban ismétli önmagát a sorozat, ugyan azokkal a jellemzőkkel mint ahogy a CCMD1-nél leírtam.
