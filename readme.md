@@ -5,6 +5,19 @@
 
 ![CC1101](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/p2.jpg "Padlófátés és hőfok/páratartalom figyelő")
 
+# Az eszküz működése
+* Az adóban egy SH79F3283P MCU-t használnak, majd erre egy ismeretlen de a leírásából adódóan 868.35MHz-es rádió kapott helyet. 
+Az MCU adatlapjából az derül ki, hogy egy analog vagy éppen digitális lábról van szó. PWM-et elvileg nem tud. Az adatlapot a documents
+mappában megtalálható. A készüléken egy kapcsolóval lehet nappali és esti hőmérsékleti értéket beállítani, majd ezzel a kapcsolóval 
+bármikor egyikről a másik állapotra átállítani a készüléket. Az érzékenyséégt lehet állítani, de nálam a legmagasabb értéken van, ami
+0.2 fok. Tehát ha a hőmérséklet alább vagy főlé megy 0.2 fokkal a beállított értéknek, akkor ki vagy be kapcsólja a kazánt.
+
+![Q3RF](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/q3rf_4.jpg "Q3RF felépítése")
+
+MCU képe, 20. láb az érdekes nekünk, azon a lábon érkezik a jel a rádióba:
+
+![Q3RF](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/sh793283p.PNG "Q3RF felépítése")
+
 # Rádió megfigyelése
 - Ez a szál nem egy full kész projk megosztása céljából jön létre, hanem mert magamnak mint, amolyan jegyzet és történet
 vezetés képpen, hogy vissza tudjam követni, hogy még is miket csináltam már meg és milyen eredményei voltak. Ettől független
