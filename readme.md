@@ -104,20 +104,30 @@ Itt viszont megint jól látszik, hogy egy csomagban ismétli önmagát a soroza
 * - Megjegyzés: Ezen gondolataim leírása közben ujra áttekintettem a digitális mintákat és kiderült, hogy rosszúl értelmeztem ezeket javítottam
 feljebb is, hogy a pontos adatok legyenek leírva. A képeket nem módosítottam.
 * START és STOP (CMD1, CMD2) jel egymás alatt
+
 ` CMD1 Binárisa: 0111 1010 0011 0011 1000 0000 1000 0000 0100 1001 || CMD1 Hexa: 0x7A33808049`
+
 ` CMD2 Binárisa: 0111 1010 0011 0011 1000 0000 0000 0000 1100 1001 || CMD2 Hexa: 0x7A338000C9`
+
 * START és STOP (CCMD1, CCMD2) jel egymás alatt
+
 ` CCMD1 Bináris: 0101 1000 1100 1100 0111 0000 0000 0101 1000 1100 1100 0111 0000 0000 || CCMD1 Hexa: 0x58CC70058CC700`
+
 ` CCMD2 Bináris: 0101 1000 1100 1100 0111 1111 0000 0101 1000 1100 1100 0111 1111 0000 || CCMD2 Hexa: 0x58CC7F058CC7F0`
 
 - Újra értelmezve a jeleket, már sokkal szebb és értelmesebb adatokat látok mint korábban, egyértelműen kiolvashatók a külömbségek és
 értelmesnek és helyesnek tűnnek az adatok.
 További felbontás ezuttal csak hexában:
 * START és STOP (CMD1, CMD2) jel egymás alatt
+
 ` CMD1 Hexa: 0x 7A 33 80 80 49`
+
 ` CMD2 Hexa: 0x 7A 33 80 00 C9` - Utolsó 2 byte a külömbség
+
 * START és STOP (CCMD1, CCMD2) jel egymás alatt
+
 ` CCMD1 Hexa: 0x 58 CC 70 - 0 - 58 CC 70 - 0`
+
 ` CCMD2 Hexa: 0x 58 CC 7F - 0 - 58 CC 7F - 0` - Ketté osztható a csomag és a felekben csak az utolsó 4 bit változik.
 
 # Konklúzió
