@@ -3,7 +3,7 @@
 * Date: 2023-03-17.
 * STM32F072, CC1101
 
-![CC1101](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/tree/master/p1.jpg "Padlófátés és hőfok/páratartalom figyelő")
+![CC1101](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/p2.jpg "Padlófátés és hőfok/páratartalom figyelő")
 
 # Rádió megfigyelése
 - Ez a szál nem egy full kész projk megosztása céljából jön létre, hanem mert magamnak mint, amolyan jegyzet és történet
