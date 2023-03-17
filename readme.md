@@ -51,9 +51,9 @@ Tehát a fentebbi jesorozat vissza fejtve a következő képpen néz ki:
 
 ` CMD1 5 byte`
 
-` CMD1 Binárisa: 0011 1101 0001 1001 1100 0000 0000 0000 0110 0100`
+` CMD1 Binárisa: 0011	1101	0001	1001	1100	0000	0000	0000	0110	0100`
 
-` CMD1 Hexa: 0x  	3	 D	  1	   9	C	 0	  0	   0	6	 4`
+` CMD1 Hexa: 0x		3	D	1	9	C	0	0	0	6	4`
 
 Látható, hogy automatikusan kiegészült 1 bittel a sorozat, hogy értelmezhető byte alakot kapjunk. Jelenleg a sorozat elejére került
 egy nulla, amely az értékén nem változtat, de a jel elcsúszhat 1 bit-et jobbra vagy adott esetben ballra.
