@@ -93,7 +93,13 @@ lehetséges, hogy a sorozat elejéről hiányzik 4 0000-ás bit. (ezt utóbit cs
 
 # STOP
 - WakeUp vagy init jel 45 db egymást követő 50%-os kitöltésű jel, kép fentebb látható, ugyan olyan.
+
 * CMD2 jelsorozat visszafejtése
+
+![CMD2](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/cmd2.PNG "CMD2")
+
+Kinagyítva a CMD2-es.
+![CMD2N](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/cmd2_kozelrol.PNG "CMD2N")
 
 ` CMD2 5 byte`
 
@@ -104,6 +110,8 @@ lehetséges, hogy a sorozat elejéről hiányzik 4 0000-ás bit. (ezt utóbit cs
 Itt látható, hogy a START jelhez képest más a jelsorozat bár kimutatható, de nem vészesen sok a külömbség.
 
 * CCMD2 jelsorozat visszafejtése
+
+![CCMD2](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/ccmd2.PNG "CCMD2")
 
 ` CCMD2 7 byte` 
 
@@ -167,7 +175,7 @@ STOP jel
 
 `CCMD2 : 0b01011000 11001100 01111111 00000101 10001100 11000111 11110000 - 0x58CC7F058CC7F0`
 
-# Merülú elem teszt
+# Merülő elem teszt
 - Következő teszt a merülő elem teszt, hogy milyen csomagok mennek.
 
 # Hibák
