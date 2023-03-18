@@ -151,6 +151,20 @@ Kérdés továbbá itt, hogy az utolsó 1 byte mit közölhet. Ennek majd még u
 - CCMD1, CCMD2 itt sokkal jobb a helyzet mind két esetben csak az utolsó 4 bit változik. 0x0 bekapcsolás, 0xF kikapcsolás. 
 Az első 3 byte és a közvetlen mögötte lévő vagy az utolsó byte felső 4bitje még hozzá tartozik az azonosítához.
 
+# Ismétlés a tudás annya
+Újabb csomagot vizsgáltam meg ellenőrzés képpen, az eredmények ugyan azok lettek.
+START jel
+
+`CMD1 : 0b0111101000110011100000001000000001001001 - 0x7A33808049`
+
+`CCMD1 : 0b01011000110011000111000000000101100011001100011100000000 - 0x58CC70058CC700`
+
+STOP jel
+
+`CMD2 : 0b0111101000110011100000000000000011001001 - 0x7A338000C9`
+
+`CCMD2 : 0b01011000110011000111111100000101100011001100011111110000 - 0x58CC7F058CC7F0`
+
 # Hibák
 2023-03-17. Újra átnéztem az összes digitális jelet és már kicsit jobb rálátással újra értelmeztem őket, a leírásban javítottam tehát
 már a jó bináris és hexa államonyokat olvashatjuk.
