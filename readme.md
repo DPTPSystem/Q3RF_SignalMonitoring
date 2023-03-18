@@ -152,18 +152,23 @@ Kérdés továbbá itt, hogy az utolsó 1 byte mit közölhet. Ennek majd még u
 Az első 3 byte és a közvetlen mögötte lévő vagy az utolsó byte felső 4bitje még hozzá tartozik az azonosítához.
 
 # Ismétlés a tudás annya
-Újabb csomagot vizsgáltam meg ellenőrzés képpen, az eredmények ugyan azok lettek.
+Újabb megigyelt csomagot vizsgáltam meg ellenőrzés képpen, az eredmények ugyan azok lettek, tehát kijelenthető, 
+hogy helyesek az adatokilletve a visszafejtések. Önmagában a meglévő csomagok tovább vizsgálása már további eredményt nem hoznának.
+
 START jel
 
-`CMD1 : 0b0111101000110011100000001000000001001001 - 0x7A33808049`
+`CMD1 : 0b01111010 00110011 10000000 10000000 01001001 - 0x7A33808049`
 
-`CCMD1 : 0b01011000110011000111000000000101100011001100011100000000 - 0x58CC70058CC700`
+`CCMD1 : 0b01011000 11001100 01110000 00000101 10001100 11000111 00000000 - 0x58CC70058CC700`
 
 STOP jel
 
-`CMD2 : 0b0111101000110011100000000000000011001001 - 0x7A338000C9`
+`CMD2 : 0b01111010 00110011 10000000 00000000 11001001 - 0x7A338000C9`
 
-`CCMD2 : 0b01011000110011000111111100000101100011001100011111110000 - 0x58CC7F058CC7F0`
+`CCMD2 : 0b01011000 11001100 01111111 00000101 10001100 11000111 11110000 - 0x58CC7F058CC7F0`
+
+# Merülú elem teszt
+- Következő teszt a merülő elem teszt, hogy milyen csomagok mennek.
 
 # Hibák
 2023-03-17. Újra átnéztem az összes digitális jelet és már kicsit jobb rálátással újra értelmeztem őket, a leírásban javítottam tehát
