@@ -181,3 +181,12 @@ STOP jel
 # Hibák
 2023-03-17. Újra átnéztem az összes digitális jelet és már kicsit jobb rálátással újra értelmeztem őket, a leírásban javítottam tehát
 már a jó bináris és hexa államonyokat olvashatjuk.
+
+# Rádió eszköz
+- 2023-03-19. Banggod-ról rendeltem egy 100KHz-1,7GHz teljes spektrumú UV HF RTL-SDR USB-s eszközt. Megjön és éllesben is be fogom a
+rádijelet és vissza fejtem, hogy megegyezik e ténylegesen a fentebb felvett digitális jellel. Illetve megtudhatom, hogy pontosan
+milyen frekin kommunikál a két ezsköz.
+
+![USB RTL-SDR](https://imgaz2.staticbg.com/thumb/large/oaupload/banggood/images/DE/8E/b0d1a97c-3cc3-4ad0-b930-153054d5e486.jpg "USB RTL-SDR")
+
+A termék linkje: https://hu.banggood.com/100KHz-1_7GHz-Full-Band-UV-HF-RTL-SDR-USB-Tuner-Receiver-USB-Dongle-with-RTL2832U-R820T2-Ham-Radio-RTL-SDR-p-1942393.html 
