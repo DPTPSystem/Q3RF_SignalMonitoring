@@ -5,12 +5,12 @@
 
 ![CC1101](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/p2.jpg "Padlófátés és hőfok/páratartalom figyelő")
 
-# Az eszküz működése
-* Az adóban egy SH79F3283P MCU-t használnak, majd erre egy ismeretlen de a leírásából adódóan 868.35MHz-es rádió kapott helyet. 
+# Az eszköz működése
+* Az adóban egy SH79F3283P MCU-t használnak, majd erre egy ismeretlen, de a leírásából adódóan 868.35MHz-es rádió kapott helyet. 
 Az MCU adatlapjából az derül ki, hogy egy analog vagy éppen digitális lábról van szó. PWM-et elvileg nem tud. Az adatlapot a documents
 mappában megtalálható. A készüléken egy kapcsolóval lehet nappali és esti hőmérsékleti értéket beállítani, majd ezzel a kapcsolóval 
-bármikor egyikről a másik állapotra átállítani a készüléket. Az érzékenyséégt lehet állítani, de nálam a legmagasabb értéken van, ami
-0.2 fok. Tehát ha a hőmérséklet alább vagy főlé megy 0.2 fokkal a beállított értéknek, akkor ki vagy be kapcsólja a kazánt.
+bármikor egyikről a másik állapotra átállítani a készüléket. Az érzékenységét lehet állítani, de nálam a legmagasabb értéken van, ami
+0.2 fok. Tehát ha a hőmérséklet alá vagy főlé megy 0.2 fokkal a beállított értéknek, akkor ki vagy be kapcsólja a kazánt.
 
 ![Q3RF](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/q3rf_4.jpg "Q3RF felépítése")
 
@@ -27,15 +27,15 @@ célom elérjem.
 # Célkitűzés
 - Q3RF kommunikáció megfigyelése és az adatok feldolgozása, majd egy külön kijelzőn jelezni, hogy a fűtés rendszer aktív avagy sem.
 - További célkitúzés lehet, egy optimálisabb vezérlés kialakítása, amely a lakás több helyiségének átlaghömérsékletének alapján 
-vezérlné a fűtésrendszert.
+vezérlné a fűtésrendszert, figyelembe véve a külső hőmérsékleteket és a helyiségekben mért páratartalmat.
 
 # Eddigi megfigyeléseim
 Szeretném jelezni már az elején, hogy azért az alábbi módon kezdtem el a megfigyelést mert nincs birtokomban jelenleg olyan eszköz,
-amely segítségével direkt meg tudnám figyelni az éterben kiküldött rádiójelet.
+amely segítségével direkt meg tudnám figyelni az éterben kiküldött rádiójeleket.
 - A meglévő adatokat az eszközön lévő rádió és MCU közti kommunikációra használt vezetékeire digitális analizátort kötöttem és lehallgattam
 a köztük áramlott kommunikációs adatot, amely egyirányú volt. Csak az MCU küldött adatot 1 vezetéken a rádiónak. Megfigyeléseim arra engednek
 következtetni, főként abból, hogy csak 1 vezetéket használ, hogy valamilyen sima időzített szintek csoportjaiban történik adat továbbítás.
-Ezek lehetnek PWM jelek, vagy valamilyen időzített billegtetés. A megfigyelt jelek voltak a következők:
+Ezek lehetnek szoftveres PWM jelek, vagy valamilyen időzített billegtetés. A megfigyelt jelek a következők voltak:
 
 # START
 - WakeUp vagy init jel 45 db egymást követő 50%-os kitöltésű jel:
@@ -60,7 +60,7 @@ A képen a 0-től 1-ig történő időközről van szó. Az 1-től 2-ig tartott 
 ki kell értékelni. Arra is gondoltam, hogy a szünet kezdete összefolyik az utolsó jel végével és így annak megfelelően, hogy mennyi
 ideig van magas szinten dönti el, hogy 0 vagy 1-es a jel értéke. Ezt majd később látni is fogjuk.
 
-Tehát a fentebbi jesorozat vissza fejtve a következő képpen néz ki: 
+Tehát a fentebbi jelsorozat vissza fejtve a következő képpen néz ki: 
 
 ` CMD1 5 byte`
 
@@ -76,10 +76,10 @@ tartalmazhatja az azonosítót is, bár a STOP jelnél más a sorozat.
 
 - A következő parancs, ami még a START részét képezi azt CCMD1-nek neveztem el, amely már érdekesebb is mint az előző.
 ![CMD1](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/ccmd1.PNG "CMD1")
-Ez a sorozat is 4szer egymát követően érkezik pici időkkel elválasztva. Emiatt talán jobban kiértékelhetőbb és élesebb határokkal 
-rendelkezik a jelsorozat, mint a korábbiak, így könnyebb dolgom volt vele.
+Ez a sorozat is 4szer egymát követően érkezik pici, de határozott időkkel elválasztva. Emiatt talán jobban kiértékelhetőbb és élesebb határokkal 
+rendelkezik a jelsorozat mint a korábbiak, így könnyebb dolgom volt vele.
 
-Tehát a fentebbi jesorozat vissza fejtve a következő képpen néz ki:
+Tehát a fentebbi jelsorozat vissza fejtve a következő képpen néz ki:
 
 ` CCMD1 7 byte` 
 
@@ -87,8 +87,8 @@ Tehát a fentebbi jesorozat vissza fejtve a következő képpen néz ki:
 
 ` CCMD1 Hexa: 0x58CC70058CC700` 
 
-Ami rögtön feltűnt mikor hexába átforgattam, hogy egy csomagban ismétli önmagát. Ami érdekes még, hogy ha felbonjuk kerek byte-okra
-a sorozatot, akkor középpen és a legvégén marad 4 bit (0000), amely valószínűleg a két csomagot választja el egymástól. Vagy esetleg
+Ami rögtön feltűnt mikor hexába átforgattam, hogy egy csomagon bellül is ismétli önmagát. Ami érdekes még, hogy ha felbonjuk kerek byte-okra
+a sorozatot, akkor középpen és a legvégén marad 4 bit (0000), amely valószínűleg a csomagon belüli 2 csomagot választja el egymástól. Vagy esetleg
 lehetséges, hogy a sorozat elejéről hiányzik 4 0000-ás bit. (ezt utóbit csak találgatom)
 
 # STOP
@@ -124,6 +124,7 @@ Itt viszont megint jól látszik, hogy egy csomagban ismétli önmagát a soroza
 # Adatok összevetése
 * - Megjegyzés: Ezen gondolataim leírása közben ujra áttekintettem a digitális mintákat és kiderült, hogy rosszúl értelmeztem ezeket javítottam
 feljebb is, hogy a pontos adatok legyenek leírva. A képeket nem módosítottam.
+
 * START és STOP (CMD1, CMD2) jel egymás alatt
 
 ` CMD1 Binárisa: 0111 1010 0011 0011 1000 0000 1000 0000 0100 1001 || CMD1 Hexa: 0x7A33808049`
@@ -139,6 +140,7 @@ feljebb is, hogy a pontos adatok legyenek leírva. A képeket nem módosítottam
 - Újra értelmezve a jeleket, már sokkal szebb és értelmesebb adatokat látok mint korábban, egyértelműen kiolvashatók a külömbségek és
 értelmesnek és helyesnek tűnnek az adatok.
 További felbontás ezuttal csak hexában:
+
 * START és STOP (CMD1, CMD2) jel egymás alatt
 
 ` CMD1 Hexa: 0x 7A 33 80 80 49`
@@ -158,10 +160,16 @@ a STOP jelet. Pl.: 0x80 = START, 0x00 = STOP.
 Kérdés továbbá itt, hogy az utolsó 1 byte mit közölhet. Ennek majd még utána nézek, pl elem merülés?
 - CCMD1, CCMD2 itt sokkal jobb a helyzet mind két esetben csak az utolsó 4 bit változik. 0x0 bekapcsolás, 0xF kikapcsolás. 
 Az első 3 byte és a közvetlen mögötte lévő vagy az utolsó byte felső 4bitje még hozzá tartozik az azonosítához.
+Mind 2 csomag első része valamilyen azonosító lehet, ezek nem változnak sorozaton belül, újra őárosítást még nem próbáltam, hogy az 
+hatással lehet e rájuk, de majd fűtési szezont követően lehet kipróbálom, ha nem oldódik meg nélküle a figyelés.
+- Ami még talán fontos, hogy a jelsorozatok egy amolyan sajátos szoftveres PWM vezérléshez hasónlítanak, az ingadozások pont amiatt lehetnek,
+hogy eggyes esetekben az MCU nem tudja folyamatosan ~uS alatt tartani a kivezérlésének sebességét. (idejét) A jelsorozatókból jól látszik, 
+hogy vannak olyan esetek, amelyeknél az MCU lasabb kiszolgálása miatt a sorozatok közti szünetek el, összecsúsznak és ezért van olyan érzése
+a megfigyelőnek, hogy valami nem teljesen stimmel a visszafejtésnél. 
 
 # Ismétlés a tudás annya
 Újabb megigyelt csomagot vizsgáltam meg ellenőrzés képpen, az eredmények ugyan azok lettek, tehát kijelenthető, 
-hogy helyesek az adatokilletve a visszafejtések. Önmagában a meglévő csomagok tovább vizsgálása már további eredményt nem hoznának.
+hogy helyesek az adatok illetve a visszafejtések. Önmagában a meglévő csomagok tovább vizsgálása már újabb eredményt nem hoznának.
 
 START jel
 
@@ -176,11 +184,14 @@ STOP jel
 `CCMD2 : 0b01011000 11001100 01111111 00000101 10001100 11000111 11110000 - 0x58CC7F058CC7F0`
 
 # Merülő elem teszt
-- Következő teszt a merülő elem teszt, hogy milyen csomagok mennek.
+- Következő teszt a merülő elem teszt, hogy milyen csomagok mennek. (ezt csak akkor, ha nem lesz más ötletem)
 
 # Hibák
 2023-03-17. Újra átnéztem az összes digitális jelet és már kicsit jobb rálátással újra értelmeztem őket, a leírásban javítottam tehát
-már a jó bináris és hexa államonyokat olvashatjuk.
+már a jó bináris és hexa államonyokat olvashatjuk. Képeket nem cseréltem, azok továbbra is hibásan ábrázolják a vissza fejtést.
+2023-03-25. Az eszköz működésésénél írtam, hogy nem PWM a vezérlés, vagy legalább is erre utaltam benne mert az MCU adatlapjában látható,
+a felhasznált port nem tud hardveres PWM vezérlést. Annyival egészíteném ki ezt a részt, hogy ettől még szoftveres PWM kimenet megoldható,
+bármelyik portra.
 
 # Rádió eszköz
 - 2023-03-19. Banggod-ról rendeltem egy 100KHz-1,7GHz teljes spektrumú UV HF RTL-SDR USB-s eszközt. Megjön és éllesben is be fogom a
