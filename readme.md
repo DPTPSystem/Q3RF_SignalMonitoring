@@ -241,8 +241,18 @@ STOP jel:
 `0b0111101000110011100000000000000011001001 - 0x7A338000C9 - STOP insmétlés 4x`
 
 CCMD STOP jelből egy részlet:
-![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/CCMD_stop.PNG "USB RTL-SDR init adás")
+![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/CCMD_stop.PNG "USB RTL-SDR CCMD adás")
 
 `0b01011000110011000111111100000101100011001100011111110000 - 0x58CC7F058CC7F0 - CCMD STOP`
 
 `0b01011000110011000111111100000101100011001100011111110000 - 0x58CC7F058CC7F0 - imsétlés 4x`
+
+Jelalakok, 868,100M-től 868,6M tartományban:
+![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/jelalak.PNG "USB RTL-SDR Jelalakok")
+
+Az érdekesség és a miértje a fentebbi képnek, hogy azt vettem észre, hogy nem feltétlen az a jó jelerőség, amelyet a HDSDR program mutat
+mert, hogy tesztelést követően illetve Audacity programot használva jól látszik, hogy egyes jelek milyen éllesek avagy mennyire kaotikus
+ábrázolást muatnak. 50KHz-es lépésekben vettem fel jeleket, a képen ez látható. Azon frekiket ki is vettem, amelyek nem mutattak semmit.
+A legszebb és legélesebb jelalakokat a 868,450M és 868,600M-es frekint tudtam rögzíteni. Még azt nem tudom eldönteni, hogy ha a jel 
+alak ezeken a frekvenciákon a legtisztábbak, akkor ugyan ezen a frekire kellene állítanom az CC1101-es adóvevőmet, vagy azt más akar az 
+adatok alapján, amit a készüléken is feltüntettek a 868,350M-es frekire lőjem be? Ez a kérdés már szerinem az éles teszteléssel fog majd eldőlni.
