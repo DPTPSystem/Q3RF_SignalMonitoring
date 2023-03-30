@@ -256,3 +256,10 @@ mert, hogy tesztelést követően illetve Audacity programot használva jól lá
 A legszebb és legélesebb jelalakokat a 868,450M és 868,600M-es frekint tudtam rögzíteni. Még azt nem tudom eldönteni, hogy ha a jel 
 alak ezeken a frekvenciákon a legtisztábbak, akkor ugyan ezen a frekire kellene állítanom az CC1101-es adóvevőmet, vagy azt más akar az 
 adatok alapján, amit a készüléken is feltüntettek a 868,350M-es frekire lőjem be? Ez a kérdés már szerinem az éles teszteléssel fog majd eldőlni.
+
+# Hacker
+Sajnos még a programot ki kell ismernem, de nem kevés idő után, azért egy ilyen állapotot már elértem..
+A jel felbontása tökéletes ahhoz, hogy felismerjük a szinteket és leolvasva, vissza tudjuk fejteni az értékét.
+
+![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/hack.PNG "USB RTL-SDR Jelalakok")
+A programot még nem tudom megfelelően használni, így az értékeket automatikusan nem tudja megfejteni. Ez még várat magára.
