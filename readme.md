@@ -194,7 +194,7 @@ a felhasznált port nem tud hardveres PWM vezérlést. Annyival egészíteném k
 bármelyik portra.
 
 # Rádió eszköz
-- 2023-03-19. Banggod-ról rendeltem egy 100KHz-1,7GHz teljes spektrumú UV HF RTL-SDR USB-s eszközt. Megjön és éllesben is be fogom a
+2023-03-19. Banggod-ról rendeltem egy 100KHz-1,7GHz teljes spektrumú UV HF RTL-SDR USB-s eszközt. Megjön és éllesben is be fogom a
 rádijelet és vissza fejtem, hogy megegyezik e ténylegesen a fentebb felvett digitális jellel. Illetve megtudhatom, hogy pontosan
 milyen frekin kommunikál a két ezsköz.
 
@@ -203,7 +203,7 @@ milyen frekin kommunikál a két ezsköz.
 A termék linkje: https://hu.banggood.com/100KHz-1_7GHz-Full-Band-UV-HF-RTL-SDR-USB-Tuner-Receiver-USB-Dongle-with-RTL2832U-R820T2-Ham-Radio-RTL-SDR-p-1942393.html 
 
 # RTL.SDR adás
-- 2023-03.30. Ma megérkezett a rádó vevő és izgatottan rá is vetettem magam. Elég bonyolult elsőre a dolog, de annyit már megtudtam, hogy
+2023-03.30. Ma megérkezett a rádó vevő és izgatottan rá is vetettem magam. Elég bonyolult elsőre a dolog, de annyit már megtudtam, hogy
 az adó eszköz (Q3RF) nem mindig ad jelet vagy is nem mindig adja ki rádión a jelet, csak abban az esetben, ha az álltala mért hőmrséklet
 valóban a beállított érték küszöbökön túl van. Tehát a digitális jel, amit fentebb mértem, azok nem mindig mennek ki. Az eszközzel és a
 felhasznált programokkal azt már megállapítottam, hogy hol  legerősebb a jel. A HDSDR programmal, sikerült belőni, hogy az én adóm a 
@@ -226,23 +226,23 @@ További jelek visszafejtve kép nélkül:
 
 START jel:
 
-`0111101000110011100000001000000001001001 - 7A 3380 8049 - START`
+`0b0111101000110011100000001000000001001001 - 0x7A33808049 - START`
 
-`0111101000110011100000001000000001001001 - 7A 3380 8049 - START ismétlés 4x`
+`0b0111101000110011100000001000000001001001 - 0x7A33808049 - START ismétlés 4x`
 
-`01011000110011000111000000000101100011001100011100000000 - 58 CC70 058C C700 - START CCMD`
+`0b01011000110011000111000000000101100011001100011100000000 - 0x58CC70058CC700 - START CCMD`
 
-`01011000110011000111000000000101100011001100011100000000 - 58 CC70 058C C700 - ismétlés 4x`
+`0b01011000110011000111000000000101100011001100011100000000 - 0x58CC70058CC700 - ismétlés 4x`
 
 STOP jel:
 
-`0111101000110011100000000000000011001001 - 7A 3380 00C9 - STOP`
+`0b0111101000110011100000000000000011001001 - 0x7A338000C9 - STOP`
 
-`0111101000110011100000000000000011001001 - 7A 3380 00C9 - STOP insmétlés 4x`
+`0b0111101000110011100000000000000011001001 - 0x7A338000C9 - STOP insmétlés 4x`
 
 CCMD STOP jelből egy részlet:
 ![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/CCMD_stop.PNG "USB RTL-SDR init adás")
 
-`01011000110011000111111100000101100011001100011111110000 - 58 CC7F 058C C7F0 - CCMD STOP`
+`0b01011000110011000111111100000101100011001100011111110000 - 0x58CC7F058CC7F0 - CCMD STOP`
 
-`01011000110011000111111100000101100011001100011111110000 - 58 CC7F 058C C7F0 - imsétlés 4x`
+`0b01011000110011000111111100000101100011001100011111110000 - 0x58CC7F058CC7F0 - imsétlés 4x`
