@@ -211,5 +211,38 @@ felhasznált programokkal azt már megállapítottam, hogy hol  legerősebb a je
 
 ![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/adas_1.PNG "USB RTL-SDR")
 
-# Universal Radio Hacker
-- Program használata következik, amely eltarthat egy darabig. Kicsit bonyolultnak tűnik elsőre.
+# HDSDR / Audacity
+Programok használata következik a legjobb vételi frekit kell megtalálnom. Annak ellenére, hogy a HDSDR szerint a legerősebb jel 868.283MHz-en
+mutatkozik a vizesés modelezés szerint, még is a jobb jeleket, amelyeket ellenőrzésként és visszafejtés miatt a Audacity programban ellenőriztem,
+inkább a 868.35-868.6M-ig tartományban kaptam. Az így kapott értékeket már elemeztem is és nem meglepő módon teljesen öszhangban vannak az 
+előzőleg a digitális analizátorral felvett jelekkel. Szerintem ez már egyértelműen meghatározza, hogy milyen jeleket kell várjak, vagy küldjek.
+
+Visszafejtés, a Audacity program képéből: - init jel
+![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/44_init_jel.PNG "USB RTL-SDR init adás")
+44 külön álló ébresztő jel, majd ezt követően jönnek az érvényes adatok. Ez amúgy a diitálisnál 45 ször van, szerintem a rádió és a szoftveres
+PWM közti külömbség itt megmutatkozik. Ettől még ez véleményem szerint az ébresztó Init jel.
+
+További jelek visszafejtve kép nélkül:
+
+START jel:
+
+`0111101000110011100000001000000001001001 - 7A 3380 8049 - START`
+
+`0111101000110011100000001000000001001001 - 7A 3380 8049 - START ismétlés 4x`
+
+`01011000110011000111000000000101100011001100011100000000 - 58 CC70 058C C700 - START CCMD`
+
+`01011000110011000111000000000101100011001100011100000000 - 58 CC70 058C C700 - ismétlés 4x`
+
+STOP jel:
+
+`0111101000110011100000000000000011001001 - 7A 3380 00C9 - STOP`
+
+`0111101000110011100000000000000011001001 - 7A 3380 00C9 - STOP insmétlés 4x`
+
+CCMD STOP jelből egy részlet:
+![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/CCMD_stop.PNG "USB RTL-SDR init adás")
+
+`01011000110011000111111100000101100011001100011111110000 - 58 CC7F 058C C7F0 - CCMD STOP`
+
+`01011000110011000111111100000101100011001100011111110000 - 58 CC7F 058C C7F0 - imsétlés 4x`
