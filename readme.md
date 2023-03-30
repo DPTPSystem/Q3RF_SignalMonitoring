@@ -201,3 +201,15 @@ milyen frekin kommunikál a két ezsköz.
 ![USB RTL-SDR](https://imgaz2.staticbg.com/thumb/large/oaupload/banggood/images/DE/8E/b0d1a97c-3cc3-4ad0-b930-153054d5e486.jpg "USB RTL-SDR")
 
 A termék linkje: https://hu.banggood.com/100KHz-1_7GHz-Full-Band-UV-HF-RTL-SDR-USB-Tuner-Receiver-USB-Dongle-with-RTL2832U-R820T2-Ham-Radio-RTL-SDR-p-1942393.html 
+
+# RTL.SDR adás
+- 2023-03.30. Ma megérkezett a rádó vevő és izgatottan rá is vetettem magam. Elég bonyolult elsőre a dolog, de annyit már megtudtam, hogy
+az adó eszköz (Q3RF) nem mindig ad jelet vagy is nem mindig adja ki rádión a jelet, csak abban az esetben, ha az álltala mért hőmrséklet
+valóban a beállított érték küszöbökön túl van. Tehát a digitális jel, amit fentebb mértem, azok nem mindig mennek ki. Az eszközzel és a
+felhasznált programokkal azt már megállapítottam, hogy hol  legerősebb a jel. A HDSDR programmal, sikerült belőni, hogy az én adóm a 
+868.283.500Hz-en adja a jelet. Vagy is a mérések alapján itt a legerősebb a jel.
+
+![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/adas_1.PNG "USB RTL-SDR")
+
+# Universal Radio Hacker
+- Program használata következik, amely eltarthat egy darabig. Kicsit bonyolultnak tűnik elsőre.
