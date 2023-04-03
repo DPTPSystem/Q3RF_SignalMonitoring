@@ -263,3 +263,16 @@ A jel felbontása tökéletes ahhoz, hogy felismerjük a szinteket és leolvasva
 
 ![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/hack.PNG "USB RTL-SDR Jelalakok")
 A programot még nem tudom megfelelően használni, így az értékeket automatikusan nem tudja megfejteni. Ez még várat magára.
+
+# Adás tétlenség
+Megfigyeléseim alapján az adó 5 percenként küld egy jelet a vevőnek, amelyet még nem fejtettem vissza, de a megfigyeléseim
+már megkezdőtek e tekintetben is.
+
+# Új írány vagy újra kezdés
+Sajnos a korábban Ali-ról rendelt CC1101-es modult nem tudtam rá venni, hogy küldjön ki jeleket, így egy másik modullal progbálkoztam, 
+amely gyárilag forrasztási hibás volt, próbálta megjavítani, de sajnos teljesen tönkre ment legalább is a kommunikáció teljesen ellehetetlenűlt. 
+Az eltelt idő és a rengeteg féle képpen lekódolt adatküldő rutin vagy éppen az inicializáló program illletve az a rengeteg áttanulmányozott forrás
+és a CC1101-es adatlap után azt kell feltételeznem, hogy a megvásárólt modulok alapból hibásak lehetnek, mert olyan nincs, hogy egyetlen
+eszszer sem passzol semmi legalább annyira, hogy jelet küldjön az eszköz. Utolsó lehetőségként rendeltem 2 újabb modult ezuttal 
+németországból, 1-2 héten belül megérkezik és adok egy utolsó esélyt ennek a projektnek, ha nem jutok előrébb az újabb modullal sem,
+akkor ezt a projektet félre fogom tenni, és más eszközzel kell befognom a Q3RF jeleit.
