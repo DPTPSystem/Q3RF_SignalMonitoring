@@ -312,4 +312,12 @@ de talán ez sem lehet nagy gond révén, hogy ez valamilyen ébresztő jel lehe
 ![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_reszlet_3.PNG "USB RTL-SDR Jelalakok")
 
 Ez az Init vagy WakeUp jel, 45db 50%-os kitúltésű jel, amely a vevőnek jelez, hogy adatok fognak érkezi. Ez az adasor az Init esetében 
-4300 kBaud sebességgel száguldanak az éterben.
+4.3 kBaud sebességgel érkezik.
+
+2023-04-06. CMD STAR jelet sikerrel létrehoztam, mondhatni tökéletesen sikerült. Sajnos programból CC1101 modem sebességét parancsonként
+állítani kell nem egészen értem miért így írta meg az eredeti szoftvert a gyártó, de lehet pont azért, hogy minél nehezebb legyen 
+visszafejteni vagy a készülékéhez kompatibilis eszközt gyártani. Míg a WakeUp jel, 4.3 kBaud sebességgel megy, a CMD START jel már csak 
+2.48 kBaud sebességel. 
+
+A képen felül az eredeti jel, alatta a CC1101-es modul álltal adott CMD START jel.
+![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_cdmstart.PNG "USB RTL-SDR Jelalakok")
