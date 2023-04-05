@@ -305,11 +305,11 @@ sokat számítson.
 ![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_reszlet.PNG "USB RTL-SDR Jelalakok")
 
 Egy köztes jel kinagyítva, azt hiszem ezzel probléma nem lehet..
-![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_reszlet2.PNG "USB RTL-SDR Jelalakok")
+![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_reszlet_2.PNG "USB RTL-SDR Jelalakok")
 
 És a jelsorozat végén van egy pici eltérés, amelynél az eredeti kicsit később kezdődik és kicsivel rövidebb mint a CC1101-es változat, 
 de talán ez sem lehet nagy gond révén, hogy ez valamilyen ébresztő jel lehet.
-![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_reszlet3.PNG "USB RTL-SDR Jelalakok")
+![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_reszlet_3.PNG "USB RTL-SDR Jelalakok")
 
 Ez az Init vagy WakeUp jel, 45db 50%-os kitúltésű jel, amely a vevőnek jelez, hogy adatok fognak érkezi. Ez az adasor az Init esetében 
 4300 kBaud sebességgel száguldanak az éterben.
