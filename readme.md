@@ -320,4 +320,4 @@ visszafejteni vagy a készülékéhez kompatibilis eszközt gyártani. Míg a Wa
 2.48 kBaud sebességel. 
 
 A képen felül az eredeti jel, alatta a CC1101-es modul álltal adott CMD START jel.
-![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_cdmstart.PNG "USB RTL-SDR Jelalakok")
+![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_cmdstart.PNG "USB RTL-SDR Jelalakok")
