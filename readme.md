@@ -269,10 +269,47 @@ Megfigyeléseim alapján az adó 5 percenként küld egy jelet a vevőnek, amely
 már megkezdőtek e tekintetben is.
 
 # Új írány vagy újra kezdés
-Sajnos a korábban Ali-ról rendelt CC1101-es modult nem tudtam rá venni, hogy küldjön ki jeleket, így egy másik modullal progbálkoztam, 
+2023-04-03: Sajnos a korábban Ali-ról rendelt CC1101-es modult nem tudtam rá venni, hogy küldjön ki jeleket, így egy másik modullal progbálkoztam, 
 amely gyárilag forrasztási hibás volt, próbáltam megjavítani, de sajnos teljesen tönkre ment legalább is a kommunikáció teljesen ellehetetlenűlt. 
 Az eltelt idő és a rengeteg féle képpen lekódolt adatküldő rutin vagy éppen az inicializáló program illletve az a rengeteg áttanulmányozott forrás
 és a CC1101-es adatlap után azt kell feltételeznem, hogy a megvásárólt modulok alapból hibásak lehetnek, mert olyan nincs, hogy egyetlen
 eszszer sem passzol semmi legalább annyira, hogy jelet küldjön az eszköz. Utolsó lehetőségként rendeltem 2 újabb modult ezuttal 
 németországból, 1-2 héten belül megérkezik és adok egy utolsó esélyt ennek a projektnek, ha nem jutok előrébb az újabb modullal sem,
 akkor ezt a projektet félre fogom tenni, és más eszközzel kell befognom a Q3RF jeleit.
+
+# Program hiba
+2023-04-04: Nem hagyott nyugodni, hogy látszólag mindne rendben van az eszközzel és jó értékeket is kapok vissza egy-egy lekérdezés vagy 
+konfigurálás kapcsán, ezért átnéztem ismét a teljes kódomat. Meglepődve tapasztaltam, hogy néhány módosítás és tesztelés után észre vettem
+valamit a vizesésben, ami olyan volt mint, amilyenhez hasonlót vártam. És az is volt.. ;)
+
+![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/korekciozott_jel.PNG "USB RTL-SDR Jelalakok")
+
+A képen már egy korrekciózott jelet lehet látni, de még csak egy 40 byte random csomaggal, ez után jön majd, annak a beállítása, hogy
+azokat az adatokat küldje ki, amelyeket én akarok és pont ugyan úgy, mint az eredeti adó is teszi. A korrekcióval jelenleg 868.355MHz-en
+küldi ki a jelet, pont ott, ahol az eredeti adó is küldi, vagy is a CC1101-es modulom, jelentősen csal, pontosan a következő mértékben:
+Skálán beállított érték: 868,286MHz
+Valós érték: 868,355MHz
+A kettő külömbségét adtam meg a programnak (PPM), amellyel korigálta CC1101 csúszását. Ennek megfelelően a programot is módosítottam és az
+új értékkel használom.
+
+2023-04-05. Kis tétlengedés és gondolkodás után elkezdtem fogglalkozni a CC1101-es rádióval, hogy lemásolva ugyan azt a jelet adja ki, mint
+az eredeti rádió. Ennek eredményeként néhány képet megosztok:
+
+A felső ábrán az eredeti rádió álltal kiadott jel látható, alatta pedig a CC1101-es rádió álltal kiadott jel.
+![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new.PNG "USB RTL-SDR Jelalakok")
+
+Messziről majdnem teljesen egyezést mutat, de sajna van két pontosabban 3 kisebb eltérés az eredetihez képest. A következő képen 
+az első jel látszik, hogy kétszer akkora mint az eredeti. Sajnos fél bit-et nem tudok küldeni, szóval ez ilyen és remélem ennyi eltérés
+ha a köztes részek egyformák nem lehet probléma. Amúgy is arra gondolok, hogy az eredeti rendszernek ez egy hibája lehet, nem szabad, hogy
+sokat számítson.
+![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_reszlet.PNG "USB RTL-SDR Jelalakok")
+
+Egy köztes jel kinagyítva, azt hiszem ezzel probléma nem lehet..
+![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_reszlet2.PNG "USB RTL-SDR Jelalakok")
+
+És a jelsorozat végén van egy pici eltérés, amelynél az eredeti kicsit később kezdődik és kicsivel rövidebb mint a CC1101-es változat, 
+de talán ez sem lehet nagy gond révén, hogy ez valamilyen ébresztő jel lehet.
+![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_reszlet3.PNG "USB RTL-SDR Jelalakok")
+
+Ez az Init vagy WakeUp jel, 45db 50%-os kitúltésű jel, amely a vevőnek jelez, hogy adatok fognak érkezi. Ez az adasor az Init esetében 
+4300 kBaud sebességgel száguldanak az éterben.
