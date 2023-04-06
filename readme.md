@@ -338,8 +338,21 @@ visszafejteni vagy a vevőhöz kompatibilis eszközt gyártani. Míg a WakeUp je
 A képen felül az eredeti jel, alatta a CC1101-es modul álltal adott CMD START jel látható.
 ![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_cmdstart.PNG "USB RTL-SDR Jelalakok")
 
-# Források
-A legtöbb forrás, amelyet a témában találtam az a Q7RF eszközt preferálta, ezért 
-Megjegyzés: Q7RF és Q3RF esetén nem csak a protokol volt teljesen más, de az egyes rádió adások hossza és adáson belüli sebesség váltásra 
-is szükség van. Ezen felül az ASK/OOK  protokólban is van változás, amedigg az egyes Q7RF vissazfejtésnél a 0 = 001 és az 1 = 011 PWM 
-ampliduónak felel meg, addig a Q3RF-nél a 0 = 100 és az 1 = 110 PWM amplitudóra változik. 
+# Források használata
+A legtöbb forrás, amelyet a témában találtam az a Q7RF eszközt preferálta, illetve az ESP-t ezért csekéj volt az egyezés az álltalam használt eszközzel.
+C1101-es modult és STM32 tekintetében, azomban amelyet találtam egy amolyan multi beállítási struktúrát követtek, az eszközzel való kompatibilitás
+érdekében ezen inicializáló beállításokat ezért magunknak kell megtalálni és optimailzálni. 
+Meg kell említsem, hogy a Q7RF és Q3RF esetén nem csak a protokol volt teljesen más, de az egyes rádió adások hossza és adáson belüli sebesség váltásra 
+is szükség van. Ezen felül az ASK/OOK  protokólban is van változás, amedigg az egyes Q7RF vissazfejtéseknél a 0 = 001 és az 1 = 011 PWM 
+ampliduónak felel meg, addig a Q3RF-nél WakeUp és START CMD esetében 0 = 100 és az 1 = 110 PWM amplitudóra változik. START CCMD esetén a normál
+állápot vagy is a 0 = 001 és 1 = 011.
+
+# Vezérlés 2023-04-06.
+* Eredetileg mikor a projektet elkezdtem, akkor nem feltétlen akartam a vezérlést elkészíteni, az elképzelésem inkább a megfigyelésre épített, 
+de a projekt fejlesztése közben rájöttem, hogy nem vagyok képes megfigyelni, úgy a rádió jeleket, ha nem vagyok képes reprodukálni és kiküldeni
+a saját CC1101-es modullal. Eljött a pillanat, mert elkészültem a jelek reprodukálásával és azokat sikerrel ki tudom küldeni. Gyakorlatilag
+megvalósult a vezérlés alapja, be és ki tudom egyelőre gomybnyomásra kapcsolni a kazánt. A továbbiakban már az eredeti adó jeleinek befogásán
+fogok dolgozni, mert szeretném látni, hogy mikor üzemel a kazán és mikor nem.
+
+Egy kép a teljes stop jelről, amelyet reprodukáltam:
+![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_stop_full_signal.PNG "USB RTL-SDR Jelalakok")
