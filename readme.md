@@ -3,6 +3,16 @@
 * Date: 2023-03-17.
 * STM32F072, CC1101
 
+# Figyelmeztetés
+* Szeretném mindenkinek felhívni a figyelmét arra, hogy az álltalam leírt adatok a saját megvásárólt készülékem vizsgálatából származik
+ezen adatok bármiféle további felhasználása csak saját felelőségre történhet, továbbá fontos lehet az is, hogy a gyártói garancia megszűnhet
+ha bármilyen módonon a gyártói előírásoktól eltérően használjuk az eszközt. Az adatok csak tájékoztató jellegűek főként saját magamnak
+szántam, felelőséget és garanciát értük nem vállalok.
+
+# Személyes figyelmesztetés
+* pill
+
+ 
 ![CC1101](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/p2.jpg "Padlófátés és hőfok/páratartalom figyelő")
 
 # Az eszköz működése
