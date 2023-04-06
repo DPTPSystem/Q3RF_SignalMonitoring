@@ -282,9 +282,11 @@ akkor ezt a projektet félre fogom tenni, és más eszközzel kell befognom a Q3
 konfigurálás kapcsán, ezért átnéztem ismét a teljes kódomat. Meglepődve tapasztaltam, hogy néhány módosítás és tesztelés után észre vettem
 valamit a vizesésben, ami olyan volt mint, amilyenhez hasonlót vártam. És az is volt.. ;)
 
+# CC1101 és Q3RF
+
 ![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/korekciozott_jel.PNG "USB RTL-SDR Jelalakok")
 
-A képen már egy korrekciózott jelet lehet látni, de még csak egy 40 byte random csomaggal, ez után jön majd, annak a beállítása, hogy
+2023-04-04: A képen már egy korrekciózott jelet lehet látni, de még csak egy 40 byte random csomaggal, ez után jön majd, annak a beállítása, hogy
 azokat az adatokat küldje ki, amelyeket én akarok és pont ugyan úgy, mint az eredeti adó is teszi. A korrekcióval jelenleg 868.355MHz-en
 küldi ki a jelet, pont ott, ahol az eredeti adó is küldi, vagy is a CC1101-es modulom, jelentősen csal, pontosan a következő mértékben:
 Skálán beállított érték: 868,286MHz
@@ -292,7 +294,7 @@ Valós érték: 868,355MHz
 A kettő külömbségét adtam meg a programnak (PPM), amellyel korigálta CC1101 csúszását. Ennek megfelelően a programot is módosítottam és az
 új értékkel használom.
 
-2023-04-05. Kis tétlengedés és gondolkodás után elkezdtem fogglalkozni a CC1101-es rádióval, hogy lemásolva ugyan azt a jelet adja ki, mint
+2023-04-05. Kis tétlenkedés és gondolkodás után elkezdtem fogglalkozni a CC1101-es rádióval, hogy lemásolva ugyan azt a jelet adja ki, mint
 az eredeti rádió. Ennek eredményeként néhány képet megosztok:
 
 A felső ábrán az eredeti rádió álltal kiadott jel látható, alatta pedig a CC1101-es rádió álltal kiadott jel.
@@ -311,13 +313,13 @@ Egy köztes jel kinagyítva, azt hiszem ezzel probléma nem lehet..
 de talán ez sem lehet nagy gond révén, hogy ez valamilyen ébresztő jel lehet.
 ![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_reszlet_3.PNG "USB RTL-SDR Jelalakok")
 
-Ez az Init vagy WakeUp jel, 45db 50%-os kitúltésű jel, amely a vevőnek jelez, hogy adatok fognak érkezi. Ez az adasor az Init esetében 
-4.3 kBaud sebességgel érkezik.
+Ez az Init vagy WakeUp jel, 45db 50%-os kitúltésű jel, amely a vevőnek jelez, hogy adatok fognak érkezni. Ez az adasor az Init esetében 
+4.3 kBaud sebességgel kell, hogy érkezzen, hogy olyan legyen mint az eredeti.
 
-2023-04-06. CMD STAR jelet sikerrel létrehoztam, mondhatni tökéletesen sikerült. Sajnos programból CC1101 modem sebességét parancsonként
-állítani kell nem egészen értem miért így írta meg az eredeti szoftvert a gyártó, de lehet pont azért, hogy minél nehezebb legyen 
-visszafejteni vagy a készülékéhez kompatibilis eszközt gyártani. Míg a WakeUp jel, 4.3 kBaud sebességgel megy, a CMD START jel már csak 
+2023-04-06. CMD STAR jelet sikerrel létrehoztam, mondhatni tökéletesen sikerült lemásolni. Sajnos programból CC1101 modem sebességét parancsonként
+változtatni kell, nem egészen értem miért így írta meg az eredeti szoftvert a gyártó, de lehet pont azért, hogy minél nehezebb legyen 
+visszafejteni vagy a vevőhöz kompatibilis eszközt gyártani. Míg a WakeUp jel, 4.3 kBaud sebességgel megy, a CMD START jel már csak 
 2.48 kBaud sebességel. 
 
-A képen felül az eredeti jel, alatta a CC1101-es modul álltal adott CMD START jel.
+A képen felül az eredeti jel, alatta a CC1101-es modul álltal adott CMD START jel látható.
 ![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_cmdstart.PNG "USB RTL-SDR Jelalakok")
