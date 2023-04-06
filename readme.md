@@ -10,7 +10,11 @@ ha bármilyen módonon a gyártói előírásoktól eltérően használjuk az es
 szántam, felelőséget és garanciát értük nem vállalok.
 
 # Személyes figyelmesztetés
-* pill
+* Meg kell említenem azt, hogy a projekt kapcsán legalább 4 hasolnó forrásból meritkeztem, de sajnos ezen projektek egyike sem volt 100%-ig
+hasznomra. Révén ezen projektek Q7RF eszközt használnak én pedig Q3RF verziót. De ezek mellett is csak a legritkább eseteben fordult elő
+bármilyen kompatibilitás két ugyan olyan eszköz közt. Tehát szinte biztosra lehet venni, hogy egy újabb de ugyan olyan típusú eszköznél 
+ismét végig kellene menni majdnem a teljes visszafejtésnek. Tehát ha olyanon gondolkodsz, hogy saját kompatibilis eszközt fejlesztenél
+gondolj arra is, hogy neked is végig kell menned a visszafejtési folyamaton. 
 
  
 ![CC1101](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/p2.jpg "Padlófátés és hőfok/páratartalom figyelő")
@@ -333,3 +337,9 @@ visszafejteni vagy a vevőhöz kompatibilis eszközt gyártani. Míg a WakeUp je
 
 A képen felül az eredeti jel, alatta a CC1101-es modul álltal adott CMD START jel látható.
 ![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_cmdstart.PNG "USB RTL-SDR Jelalakok")
+
+# Források
+A legtöbb forrás, amelyet a témában találtam az a Q7RF eszközt preferálta, ezért 
+Megjegyzés: Q7RF és Q3RF esetén nem csak a protokol volt teljesen más, de az egyes rádió adások hossza és adáson belüli sebesség váltásra 
+is szükség van. Ezen felül az ASK/OOK  protokólban is van változás, amedigg az egyes Q7RF vissazfejtésnél a 0 = 001 és az 1 = 011 PWM 
+ampliduónak felel meg, addig a Q3RF-nél a 0 = 100 és az 1 = 110 PWM amplitudóra változik. 
