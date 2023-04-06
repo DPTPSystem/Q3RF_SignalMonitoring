@@ -354,5 +354,5 @@ a saját CC1101-es modullal. Eljött a pillanat, mert elkészültem a jelek repr
 megvalósult a vezérlés alapja, be és ki tudom egyelőre gomybnyomásra kapcsolni a kazánt. A továbbiakban már az eredeti adó jeleinek befogásán
 fogok dolgozni, mert szeretném látni, hogy mikor üzemel a kazán és mikor nem.
 
-Egy kép a teljes stop jelről, amelyet reprodukáltam:
+Egy kép a teljes stop jelről, amelyet reprodukáltam, felső az eredeti, alsó a CC1101-es adása.:
 ![USB RTL-SDR](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/origi_and_new_stop_full_signal.PNG "USB RTL-SDR Jelalakok")
