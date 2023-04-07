@@ -1,23 +1,22 @@
 # COMPUTHERM Q3RF
 * DPTP System - COMPUTHERM Q3RF 
-* Date: 2023-03-17.
-* STM32F072, CC1101
+* Kezdés: 2023-03-17.
+* Vezérlés: 2023-04-06.
+* STM32F072, CC1101 868MHz, C Code
 
 # Figyelmeztetés
 * Szeretném mindenkinek felhívni a figyelmét arra, hogy az álltalam leírt adatok a saját megvásárólt készülékem vizsgálatából származik
-ezen adatok bármiféle további felhasználása csak saját felelőségre történhet, továbbá fontos lehet az is, hogy a gyártói garancia megszűnhet
+ezen adatok bármiféle további felhasználása csak saját felelőségre történhet, továbbá fontos lehet az is, hogy a gyártói garancia megszűnhet,
 ha bármilyen módonon a gyártói előírásoktól eltérően használjuk az eszközt. Az adatok csak tájékoztató jellegűek főként saját magamnak
 szántam, felelőséget és garanciát értük nem vállalok.
 
 # Személyes figyelmesztetés
 * Meg kell említenem azt, hogy a projekt kapcsán legalább 4 hasolnó forrásból merítkeztem, de sajnos ezen projektek egyike sem volt 100%-ig
 hasznomra. Révén ezen projektek Q7RF eszközt használnak én pedig Q3RF verziót. De ezek mellett is csak a legritkább eseteben fordult elő
-bármilyen kompatibilitás két ugyan olyan eszköz közt. Tehát szinte biztosra lehet venni, hogy egy újabb de ugyan olyan típusú eszköznél 
-ismét végig kellene menni majdnem a teljes visszafejtésnek. Tehát ha olyanon gondolkodsz, hogy saját kompatibilis eszközt fejlesztenél
+bármilyen kompatibilitás két ugyan olyan eszköz közt. Tehát szinte biztosra lehet venni, hogy egy újabb, de ugyan olyan típusú eszköznél 
+ismét végig kellene menni majdnem a teljes visszafejtésnek. Tehát, ha olyanon gondolkodsz, hogy saját kompatibilis eszközt fejlesztenél
 gondolj arra is, hogy neked is végig kell menned a visszafejtési folyamaton. Azonban az is hozzátartozik, hogy "szerintem" bármilyen ehhez 
-a családhoz tartozó rádió adó akár digitális analizátorral lehalgatva, azt visszafejtve, annak jele reprodukálható a fejlesztett hardverrel
-és beágyazott szoftverrel.
-
+a családhoz tartozó rádió adó, akár digitális analizátorral lehalgatva, azt visszafejtve, annak jele reprodukálható a fejlesztett hardverrel.
  
 ![CC1101](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/p2.jpg "Padlófátés és hőfok/páratartalom figyelő")
 
@@ -59,6 +58,24 @@ Ezek lehetnek szoftveres PWM jelek, vagy valamilyen időzített billegtetés. A 
 Ez a jel egyébként minden START vagy éppen a STOP jelzés elején ott van. Ebből arra következtetek, hogy ez a jel jelzi a vevőnek, 
 hogy adatok fognak érkezni. A jel után egy 4mS-os szünet érkezik.
 
+- WakeUp jel reszletei (tesztelve és jól működik):
+Modem sebessége: 4.3 kBaud
+Adat sorzat, ameyet ki kell küldeni ( 11 byte ): 0b0101010101010101010101010101010101010101010101010101010101010101010101010101010101010101
+Adat sorozat lezárása ( 2 byte ): 0b0111111111000000
+Kódrészlet:
+```
+	// data 13 byte
+	PKTLEN = 13;
+
+	// Modem Q3RF WakeUp 0x5B = 4300 Baud
+	MDMCFG4 = 0xF7;
+	MDMCFG3 = 0x5B;
+
+	for(int i=0; i<11; i++) WakeUp[i] = 0b01010101;
+	WakeUp[11] = 0b01111111;	// Lezáró
+	WakeUp[12] = 0b11000000;	// Lezáró
+```
+
 - Következő képen az Init és az első parancs, amelyet a továbbiakban CMD1 néven nevezek.
 ![InitandCMD1](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/cmd1.PNG "Init és CMD1")
 
@@ -78,11 +95,42 @@ ideig van magas szinten dönti el, hogy 0 vagy 1-es a jel értéke. Ezt majd ké
 
 Tehát a fentebbi jelsorozat vissza fejtve a következő képpen néz ki: 
 
+` 2.48 kBaud`
+
 ` CMD1 5 byte`
 
 ` CMD1 Binárisa: 0111 1010 0011 0011 1000 0000 1000 0000 0100 1001`
 
 ` CMD1 Hexa: 0x7A33808049`
+
+Kódrészlet:
+```
+	// 16 byte adat
+	PKTLEN, 16;
+
+	// Q3RF START CMD 0x90 = 2480 Baud, Exponent 6
+	MDMCFG4 = 0xF6;
+	MDMCFG3 = 0x90;
+
+	// 0b0111101000110011100000001000000001001001 - 40 bit, 4x	0x7A 33 80 80 49
+	// A lefordítást visszajára kellett megadnom, tehát a 0 = 100, 1 = 110
+	SCMD[0] = 0b10011011;
+	SCMD[1] = 0b01101101;
+	SCMD[2] = 0b00110100;
+	SCMD[3] = 0b10010011;
+	SCMD[4] = 0b01101001;
+	SCMD[5] = 0b00110110;
+	SCMD[6] = 0b11010010;
+	SCMD[7] = 0b01001001;
+	SCMD[8] = 0b00100100;
+	SCMD[9] = 0b11010010;
+	SCMD[10] = 0b01001001;
+	SCMD[11] = 0b00100100;
+	SCMD[12] = 0b10011010;
+	SCMD[13] = 0b01001101;
+	SCMD[14] = 0b00100110;
+	SCMD[15] = 0b00011110;	// Lezáró
+```
 
 Látható, hogy automatikusan kiegészült 1 bittel a sorozat, hogy értelmezhető byte alakot kapjunk. Jelenleg a sorozat elejére került
 egy nulla, amely az értékén nem változtat, de a jel elcsúszhat 1 bit-et jobbra vagy adott esetben ballra.
@@ -97,11 +145,49 @@ rendelkezik a jelsorozat mint a korábbiak, így könnyebb dolgom volt vele.
 
 Tehát a fentebbi jelsorozat vissza fejtve a következő képpen néz ki:
 
+` 4.389 kBaud`
+
 ` CCMD1 7 byte` 
 
 ` CCMD1 Bináris: 0101 1000 1100 1100 0111 0000 0000 0101 1000 1100 1100 0111 0000 0000` 
 
 ` CCMD1 Hexa: 0x58CC70058CC700` 
+
+Kódrészlet:
+```
+	// 22 byte adat
+	PKTLEN = 22;
+
+	// Q3RF START CCMD 0x62 = 4389 Baud, Exponent 7
+	MDMCFG4 = 0xF7;
+	MDMCFG3 = 0x62;
+
+	// 0b01011000110011000111000000000101100011001100011100000000 - 0x58CC70058CC700 - START CCMD
+	// A lefordítást normál módban: 0 = 001, 1 = 011
+
+	SCCMD[0] = 0b00101100;
+	SCCMD[1] = 0b10110110;
+	SCCMD[2] = 0b01001001;
+	SCCMD[3] = 0b01101100;
+	SCCMD[4] = 0b10010110;
+	SCCMD[5] = 0b11001001;
+	SCCMD[6] = 0b00101101;
+	SCCMD[7] = 0b10110010;
+	SCCMD[8] = 0b01001001;
+	SCCMD[9] = 0b00100100;
+	SCCMD[10] = 0b10010010;
+	SCCMD[11] = 0b11001011;
+	SCCMD[12] = 0b01100100;
+	SCCMD[13] = 0b10010110;
+	SCCMD[14] = 0b11001001;
+	SCCMD[15] = 0b01101100;
+	SCCMD[16] = 0b10010010;
+	SCCMD[17] = 0b11011011;
+	SCCMD[18] = 0b00100100;
+	SCCMD[19] = 0b10010010;
+	SCCMD[20] = 0b01001001;
+	SCCMD[21] = 0b00000000;	// Lezáró
+```
 
 Ami rögtön feltűnt mikor hexába átforgattam, hogy egy csomagon bellül is ismétli önmagát. Ami érdekes még, hogy ha felbonjuk kerek byte-okra
 a sorozatot, akkor középpen és a legvégén marad 4 bit (0000), amely valószínűleg a csomagon belüli 2 csomagot választja el egymástól. Vagy esetleg
@@ -117,11 +203,42 @@ lehetséges, hogy a sorozat elejéről hiányzik 4 0000-ás bit. (ezt utóbit cs
 Kinagyítva a CMD2-es.
 ![CMD2N](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/cmd2_kozelrol.PNG "CMD2N")
 
+` 2.48 kBaud`
+
 ` CMD2 5 byte`
 
 ` CMD2 Binárisa: 0111 1010 0011 0011 1000 0000 0000 0000 1100 1001`
 
 ` CMD2 Hexa: 0x7A338000C9`
+
+Kódrészlet:
+```
+	// 16 byte adat
+	PKTLEN = 16;
+
+	// Q3RF START CMD 0x90 = 2480 Baud, Exponent 6
+	MDMCFG4 = 0xF6;
+	MDMCFG3 = 0x90;
+
+	// 0b0111101000110011100000000000000011001001 - 0x7A338000C9 - STOP
+	// A lefordítást visszajára kellett megadnom, tehát a 0 = 100, 1 = 110
+	SCMD[0] = 0b10011011;
+	SCMD[1] = 0b01101101;
+	SCMD[2] = 0b00110100;
+	SCMD[3] = 0b10010011;
+	SCMD[4] = 0b01101001;
+	SCMD[5] = 0b00110110;
+	SCMD[6] = 0b11010010;
+	SCMD[7] = 0b01001001;
+	SCMD[8] = 0b00100100;
+	SCMD[9] = 0b10010010;
+	SCMD[10] = 0b01001001;
+	SCMD[11] = 0b00100100;
+	SCMD[12] = 0b11011010;
+	SCMD[13] = 0b01001101;
+	SCMD[14] = 0b00100110;
+	SCMD[15] = 0b00011110;	// Lezáró
+```
 
 Itt látható, hogy a START jelhez képest más a jelsorozat bár kimutatható, de nem vészesen sok a külömbség.
 
@@ -129,11 +246,49 @@ Itt látható, hogy a START jelhez képest más a jelsorozat bár kimutatható, 
 
 ![CCMD2](https://github.com/DPTPSystem/Q3RF_SignalMonitoring/blob/master/images/ccmd2.PNG "CCMD2")
 
+` 4.389 kBaud`
+
 ` CCMD2 7 byte` 
 
 ` CCMD2 Bináris: 0101 1000 1100 1100 0111 1111 0000 0101 1000 1100 1100 0111 1111 0000`
  
 ` CCMD2 Hexa: 0x58CC7F058CC7F0`
+
+Kódrészlet:
+```
+	// 22 byte adat
+	PKTLEN = 22;
+
+	// Q3RF START CCMD 0x62 = 4389 Baud, Exponent 7
+	MDMCFG4 = 0xF7;
+	MDMCFG3 = 0x62;
+
+	// 0b01011000110011000111111100000101100011001100011111110000 - 0x58CC7F058CC7F0 - CCMD STOP
+	// A lefordítást normál módban: 0 = 001, 1 = 011
+
+	SCCMD[0] = 0b00101100;
+	SCCMD[1] = 0b10110110;
+	SCCMD[2] = 0b01001001;
+	SCCMD[3] = 0b01101100;
+	SCCMD[4] = 0b10010110;
+	SCCMD[5] = 0b11001001;
+	SCCMD[6] = 0b00101101;
+	SCCMD[7] = 0b10110110;
+	SCCMD[8] = 0b11011011;
+	SCCMD[9] = 0b00100100;
+	SCCMD[10] = 0b10010010;
+	SCCMD[11] = 0b11001011;
+	SCCMD[12] = 0b01100100;
+	SCCMD[13] = 0b10010110;
+	SCCMD[14] = 0b11001001;
+	SCCMD[15] = 0b01101100;
+	SCCMD[16] = 0b10010010;
+	SCCMD[17] = 0b11011011;
+	SCCMD[18] = 0b01101101;
+	SCCMD[19] = 0b10110010;
+	SCCMD[20] = 0b01001001;
+	SCCMD[21] = 0b00000000;	// Lezáró
+```
 
 Itt viszont megint jól látszik, hogy egy csomagban ismétli önmagát a sorozat, ugyan azokkal a jellemzőkkel mint ahogy a CCMD1-nél leírtam.
 
@@ -281,8 +436,9 @@ A jel felbontása tökéletes ahhoz, hogy felismerjük a szinteket és leolvasva
 A programot még nem tudom megfelelően használni, így az értékeket automatikusan nem tudja megfejteni. Ez még várat magára.
 
 # Adás tétlenség
-Megfigyeléseim alapján az adó 5 percenként küld egy jelet a vevőnek, amelyet még nem fejtettem vissza, de a megfigyeléseim
-már megkezdőtek e tekintetben is.
+Megfigyeléseim alapján az adó 5 percenként ismétli az aktuális állapotnak megfelelő jel kiküldését. Pl.:, ha a kazán nincs üzemben, akkor
+a STOP jelet imsételgeti 5 percenként és ha működik, akkor a START jelet. Erre figyelni kell, ha külön akkarjuk egy másik eszközről
+vezérelni a kazánt, hogy később se okozzon meglepetést.
 
 # Új írány vagy újra kezdés
 2023-04-03: Sajnos a korábban Ali-ról rendelt CC1101-es modult nem tudtam rá venni, hogy küldjön ki jeleket, így egy másik modullal progbálkoztam, 
@@ -348,6 +504,17 @@ Meg kell említsem, hogy a Q7RF és Q3RF esetén nem csak a protokol volt teljes
 is szükség van. Ezen felül az ASK/OOK  protokólban is van változás, amedigg az egyes Q7RF vissazfejtéseknél a 0 = 001 és az 1 = 011 PWM 
 ampliduónak felel meg, addig a Q3RF-nél WakeUp és START CMD esetében 0 = 100 és az 1 = 110 PWM amplitudóra változik. START CCMD esetén a normál
 állápot vagy is a 0 = 001 és 1 = 011.
+* Felhasznált vagy átnézett források:
+** https://github.com/nistvan86
+** https://github.com/denxhun/ComputhermRF
+** https://github.com/AlekseySedyshev
+** https://github.com/dsoldevila
+** https://github.com/martyrs
+
+* Olvasni való és programok:
+** https://ardu.blog.hu/2019/04/17/computherm_q8rf_uj_kihivas_part
+** https://www.hackers-arise.com/post/software-defined-radio-sdr-for-hackers-getting-started
+** https://www.rtl-sdr.com/
 
 # Vezérlés 2023-04-06.
 * Eredetileg mikor a projektet elkezdtem, akkor nem feltétlen akartam a vezérlést elkészíteni, az elképzelésem inkább a megfigyelésre épített, 
