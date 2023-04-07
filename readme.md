@@ -505,16 +505,16 @@ is szükség van. Ezen felül az ASK/OOK  protokólban is van változás, amedig
 ampliduónak felel meg, addig a Q3RF-nél WakeUp és START CMD esetében 0 = 100 és az 1 = 110 PWM amplitudóra változik. START CCMD esetén a normál
 állápot vagy is a 0 = 001 és 1 = 011.
 * Felhasznált vagy átnézett források:
-** https://github.com/nistvan86
-** https://github.com/denxhun/ComputhermRF
-** https://github.com/AlekseySedyshev
-** https://github.com/dsoldevila
-** https://github.com/martyrs
+* * https://github.com/nistvan86
+* * https://github.com/denxhun/ComputhermRF
+* * https://github.com/AlekseySedyshev
+* * https://github.com/dsoldevila
+* * https://github.com/martyrs
 
 * Olvasni való és programok:
-** https://ardu.blog.hu/2019/04/17/computherm_q8rf_uj_kihivas_part
-** https://www.hackers-arise.com/post/software-defined-radio-sdr-for-hackers-getting-started
-** https://www.rtl-sdr.com/
+* * https://ardu.blog.hu/2019/04/17/computherm_q8rf_uj_kihivas_part
+* * https://www.hackers-arise.com/post/software-defined-radio-sdr-for-hackers-getting-started
+* * https://www.rtl-sdr.com/
 
 # Vezérlés 2023-04-06.
 * Eredetileg mikor a projektet elkezdtem, akkor nem feltétlen akartam a vezérlést elkészíteni, az elképzelésem inkább a megfigyelésre épített, 
